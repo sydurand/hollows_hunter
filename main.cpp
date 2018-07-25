@@ -14,6 +14,7 @@
 #define PARAM_IMP_REC "/imp"
 #define PARAM_HOOKS "/hooks"
 #define PARAM_SHELLCODE "/shellc"
+#define PARAM_SUSPEND "/suspend"
 #define PARAM_PNAME "/pname"
 #define PARAM_KILL "/kill"
 #define PARAM_LOOP "/loop"
@@ -36,6 +37,9 @@ void print_help()
 
     print_in_color(param_color, PARAM_HOOKS);
     std::cout << " : Detect hooks and in-memory patches.\n";
+
+    print_in_color(param_color, PARAM_SUSPEND);
+    std::cout << " : Suspend the process before scanning (resumes after the scan).\n";
 
     print_in_color(param_color, PARAM_PNAME);
     std::cout << " <process_name>\n\t: Scan only processes with given name.\n";
@@ -176,6 +180,9 @@ int main(int argc, char *argv[])
         }
         else if (!strcmp(argv[i], PARAM_LOOP)) {
             hh_args.loop_scanning = true;
+        }
+        else if (!strcmp(argv[i], PARAM_SUSPEND)) {
+            hh_args.pesieve_args.suspend = true;
         }
         else if (!strcmp(argv[i], PARAM_KILL)) {
             hh_args.kill_suspicious = true;
